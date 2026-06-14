@@ -2,6 +2,7 @@ package com.example.rakshit.CollegeManagementSystem.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.envers.Audited;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Audited
 public class ProfessorEntity {
 
     @Id

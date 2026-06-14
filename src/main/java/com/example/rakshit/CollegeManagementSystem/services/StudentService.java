@@ -7,21 +7,27 @@ import com.example.rakshit.CollegeManagementSystem.entities.AdmissionRecordEntit
 import com.example.rakshit.CollegeManagementSystem.entities.StudentEntity;
 import com.example.rakshit.CollegeManagementSystem.repositories.StudentRepository;
 import jakarta.transaction.Transactional;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import org.slf4j.Logger;
+
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
+    Logger log = LoggerFactory.getLogger(StudentService.class);
 
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
     private StudentResponseDto toDto(StudentEntity student){
+        log.info("Converting to student entity to student dto");
+
         return StudentResponseDto.builder()
                 .id(student.getId())
                 .name(student.getName())
@@ -31,6 +37,7 @@ public class StudentService {
 
     @Transactional
     public StudentResponseDto createStudent(CreateStudentRequestDto dto){
+        log.info("Attempting to create student record");
         StudentEntity student = new StudentEntity();
         student.setName(dto.getName());
 
