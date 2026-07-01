@@ -7,6 +7,7 @@ import com.example.rakshit.CollegeManagementSystem.services.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class StudentController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('STUDENT_CREATE')")
     public StudentResponseDto createStudent(
             @RequestBody CreateStudentRequestDto student
     ){
@@ -29,6 +31,7 @@ public class StudentController {
     }
 
     @GetMapping(path = "/{id}")
+    @PreAuthorize("hasAuthority('STUDENT_VIEW')")
     public StudentResponseDto getStudentById(
             @PathVariable Long id
     ){
@@ -36,6 +39,7 @@ public class StudentController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('STUDENT_VIEW')")
     public Page<StudentResponseDto> getAllStudents(
             @RequestParam(defaultValue = "0") int pageNumber,
             @RequestParam(defaultValue = "10") int pageSize,
@@ -49,6 +53,7 @@ public class StudentController {
     }
 
     @PutMapping(path = "/{id}")
+    @PreAuthorize("hasAuthority('STUDENT_UPDATE')")
     public StudentResponseDto updateStudent(
             @PathVariable Long id,
             @RequestBody @Valid UpdateStudentDto dto
@@ -58,6 +63,7 @@ public class StudentController {
 
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('STUDENT_DELETE')")
     public void deleteStudent(@PathVariable Long id){
         studentService.deleteStudent(id);
     }
