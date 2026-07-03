@@ -6,6 +6,7 @@ import com.example.rakshit.CollegeManagementSystem.handlers.OAuth2SuccessHandler
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -22,6 +23,7 @@ import static com.example.rakshit.CollegeManagementSystem.enums.Role.*;
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableMethodSecurity(securedEnabled = true)
+@Profile("!test")
 public class WebSecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;

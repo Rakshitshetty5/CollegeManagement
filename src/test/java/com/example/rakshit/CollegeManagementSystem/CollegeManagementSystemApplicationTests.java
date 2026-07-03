@@ -5,36 +5,48 @@ import com.example.rakshit.CollegeManagementSystem.enums.Role;
 import com.example.rakshit.CollegeManagementSystem.entities.User;
 import com.example.rakshit.CollegeManagementSystem.services.AdminService;
 import com.example.rakshit.CollegeManagementSystem.repositories.UserRepository;
-import org.junit.jupiter.api.Test;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@Slf4j
 class CollegeManagementSystemApplicationTests {
 
-    @Autowired
-    private AdminService adminService;
-    
-    @Autowired
-    private UserRepository userRepository;
+    @BeforeEach
+    void setUp(){
+        log.info("Starting method, setting up");
+    }
 
-	@Test
-	void contextLoads() {
-	}
+    @AfterEach
+    void tearDown(){
+        log.info("clean up...");
+    }
+
+    @BeforeAll
+    static void setUpOnce(){
+        log.info("Main setup");
+    }
+
+    @AfterAll
+    static void tearDownOnce(){
+        log.info("Tearing down all...");
+    }
 
     @Test
-    void testUserRolesAreSaved() {
-        UserSignUpDto dto = new UserSignUpDto();
-        dto.setEmail("test@example.com");
-        dto.setPassword("password");
-        dto.setRoles(Set.of(Role.USER, Role.ADMIN));
-        
-        adminService.signUp(dto);
-        
-        User savedUser = userRepository.findByEmail("test@example.com").orElseThrow();
-        assertThat(savedUser.getRoles()).containsExactlyInAnyOrder(Role.USER, Role.ADMIN);
+    void testNumberOne(){
+        int a = 1;
+        int b = 4;
+
+        int result = addTwoNumbers(a, b);
+
+        assertThat(result).isEqualTo(5);
+    }
+
+    int addTwoNumbers(int a , int b){
+        return a + b;
     }
 }

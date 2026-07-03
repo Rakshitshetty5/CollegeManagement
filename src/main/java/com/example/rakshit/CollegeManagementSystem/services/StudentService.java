@@ -5,6 +5,7 @@ import com.example.rakshit.CollegeManagementSystem.dto.StudentResponseDto;
 import com.example.rakshit.CollegeManagementSystem.dto.UpdateStudentDto;
 import com.example.rakshit.CollegeManagementSystem.entities.AdmissionRecordEntity;
 import com.example.rakshit.CollegeManagementSystem.entities.StudentEntity;
+import com.example.rakshit.CollegeManagementSystem.exceptions.ResourceNotFoundException;
 import com.example.rakshit.CollegeManagementSystem.repositories.StudentRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.LoggerFactory;
@@ -54,7 +55,7 @@ public class StudentService {
 
     @Transactional
     public StudentResponseDto getStudentById(Long id){
-        StudentEntity student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student Not Found"));
+        StudentEntity student = studentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Student Not Found"));
         return toDto(student);
     }
 
@@ -69,12 +70,13 @@ public class StudentService {
     @Transactional
     public StudentResponseDto updateStudent(Long id, UpdateStudentDto dto){
         StudentEntity student = studentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Student Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Student Not Found"));
 
         student.setName(dto.getName());
 
         AdmissionRecordEntity admissionRecord = student.getAdmissionRecord();
         if(admissionRecord != null) admissionRecord.setFees(dto.getFees());
+
 
         return toDto(student);
     }
@@ -82,7 +84,7 @@ public class StudentService {
     @Transactional
     public void deleteStudent(Long id){
         StudentEntity student = studentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Student Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Student Not Found"));
         studentRepository.delete(student);
     }
 }
