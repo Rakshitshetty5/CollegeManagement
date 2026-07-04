@@ -30,7 +30,7 @@ public class WebSecurityConfig {
     private final OAuth2SuccessHandler successHandler;
 
     private static final String[] publicRoutes = {
-            "/error", "/auth/**", "/home.html"
+            "/error", "/auth/**", "/home.html", "/"
     };
 
     @Bean
