@@ -15,8 +15,8 @@ public class CollegeManagementSystemApplication implements CommandLineRunner {
 
 //	private final ProfileServiceImp profileService;
 
-	@Value("${my.name}")
-	private String myName;
+//	@Value("${my.name}")
+//	private String myName;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CollegeManagementSystemApplication.class, args);
@@ -25,7 +25,7 @@ public class CollegeManagementSystemApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 //		System.out.println(profileService.showProfile());
-		System.out.println(myName);
+//		System.out.println(myName);
 	}
 
 }
